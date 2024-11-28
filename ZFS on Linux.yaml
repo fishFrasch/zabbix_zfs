@@ -1,0 +1,32 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: 0d87abcf9fd241a3b665c716d7a8be80
+      template: 'ZFS on Linux'
+      name: 'ZFS on Linux'
+      description: 'ZFS on Linux'
+      groups:
+        - name: Templates
+      discovery_rules:
+        - uuid: 435221cf7db64457bb601254de88e838
+          name: 'zfs list discovery'
+          key: zfs.pool.discovery
+          delay: 5m
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 8e104ac2ea5148e6b2ab35de0dafe590
+              name: 'ZFS {#POOLNAME} Health'
+              key: 'zfs.zpool.health[{#POOLNAME}]'
+              delay: 15m
+              history: 90d
+              value_type: TEXT
+              trends: '0'
+              trigger_prototypes:
+                - uuid: 28a50543f9a2458f819235f359a37054
+                  expression: 'find(/ZFS on Linux/zfs.zpool.health[{#POOLNAME}],,"like","ONLINE")=0'
+                  name: 'Сломался ZFS {#POOLNAME} на {HOST.NAME}'
+                  priority: HIGH
