@@ -1,0 +1,32 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: bf6ec3e9293a4a4386e7be720eef62f1
+      template: 'ZFS on FreeBSD'
+      name: 'ZFS on FreeBSD'
+      description: 'ZFS on FreeBSD'
+      groups:
+        - name: Templates
+      discovery_rules:
+        - uuid: 22a9121c90024266beacfd103155e0dc
+          name: 'zfs list discovery'
+          key: zfs.pool.discovery
+          delay: 5m
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 9a33cf2215d64b70846e78a35a87ef65
+              name: 'ZFS {#POOLNAME} Health'
+              key: 'zfs.zpool.health[{#POOLNAME}]'
+              delay: 15m
+              history: 90d
+              value_type: TEXT
+              trends: '0'
+              trigger_prototypes:
+                - uuid: b37235da7cb7460483a785c4e8eba843
+                  expression: 'find(/ZFS on FreeBSD/zfs.zpool.health[{#POOLNAME}],,"like","ONLINE")=0'
+                  name: 'Сломался ZFS {#POOLNAME} на {HOST.NAME}'
+                  priority: HIGH
