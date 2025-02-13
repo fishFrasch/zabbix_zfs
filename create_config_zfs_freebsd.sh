@@ -15,9 +15,8 @@ EOF
 
 #sed -i -e 's/# Include=\/usr\/local\/etc\/zabbix64\/zabbix_agentd.conf.d\/\*.conf/Include=\/usr\/local\/etc\/zabbix64\/zabbix_agentd.conf.d\/\*.conf/' /usr/local/etc/zabbix64/zabbix_agentd.conf
 
-sh -c "echo Include=\/usr\/local\/etc\/zabbix\/zabbix_agentd.conf.d\/\*.conf/ >>/usr/local/etc/zabbix64zabbix_agentd.conf"
-sh -c "echo Include=\/usr\/local\/etc\/zabbix\/zabbix_agentd.conf.d\/\*.conf/ >>/usr/local/etc/zabbix7/zabbix_agentd.conf"
-sh -c "echo Include=\/usr\/local\/etc\/zabbix\/zabbix_agentd.conf.d\/\*.conf/ >>/usr/local/etc/zabbix72/zabbix_agentd.conf"
-
+sh -c "echo Include=\/usr\/local\/etc\/zabbix\/zabbix_agentd.conf.d\/\*.conf >>/usr/local/etc/zabbix64zabbix_agentd.conf"
+sh -c "echo Include=\/usr\/local\/etc\/zabbix\/zabbix_agentd.conf.d\/\*.conf >>/usr/local/etc/zabbix7/zabbix_agentd.conf"
+sh -c "echo Include=\/usr\/local\/etc\/zabbix\/zabbix_agentd.conf.d\/\*.conf >>/usr/local/etc/zabbix72/zabbix_agentd.conf"
 
 /usr/local/etc/rc.d/zabbix_agentd restart
